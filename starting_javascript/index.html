@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript Intro</title>
+    <style>
+        #little-div{
+            background-color: rgb(100,0,200);
+            color: white;
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+<div id="little-div"> Hello </div>
+<script>
+    // declare a variable
+    let my_name = "Jade";
+    console.log(my_name);
+    let x = document.getElementById("little-div");
+    x.innerHTML = my_name;
+    // style allows
+    x.style.backgroundColor = "rgb(0,100,00)";
+    x.style.width = "50%";
+
+    // loops
+    // declared the counter (i=0), upper limit(i<10), increment (i++)
+    for(let i = 0 ; i<10 ; i++) {
+        // console.log(i)
+        console.log(Math.pow(i, 6))
+    }
+    // array (list)
+    A = []
+    // put something into list
+    A.push("Annie");
+    A.push("Bob");
+    A.push("Darren");
+    console.log(A);
+
+    // loop through list
+    for(let i=0; i<A.length; i++){
+        console.log(A[i])
+    }
+
+    function reverseLetters(n){
+        let nameLength = n.length;
+        let reversedName = "";
+        for(let i = nameLength - 1; i >= 0; i--)
+    }
+
+</script>
+</body>
+</html>
