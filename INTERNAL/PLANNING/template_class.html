@@ -49,10 +49,12 @@
 				<img class="img-responsive" src="assets/img/project_backlog.png" alt="">
 				<hr>
     <!-- Heading levels -->
-    <h1>Sprint One</h1>
+    <h1 href="#sone">Sprint One</h1>
 				<h2>Aim</h2>
 				<p>By the end of this sprint the program should have a canvas, and the user should be able to click and
 				drag to create a rectangle.</p>
+				<h2>To-do</h2>
+				<img class="img-responsive" src="assets/img/sprint_one_board.png" alt="">
 	<h2>Planning</h2>
 				<div class="col-container">
 					<div class="col">
@@ -62,9 +64,8 @@
 						<img class="img-responsive" src="assets/img/sprint_one_plan_two.jpg" alt="">
 					</div>
 				</div>
-				<h2>To-do</h2>
-				<img class="img-responsive" src="assets/img/sprint_one_board.png" alt="">
-	<h2>Test</h2>
+	<h2>Testing</h2>
+				<h3>Initial test</h3>
 				<video class="center" controls>
 					<source src="assets/video/sprint_one_test.mov" type="video/mp4">
 					Your browser does not support the video tag.
@@ -78,15 +79,16 @@
 					the canvas while dragging a rectangle, the rectangle disappears. This is confusing and irritating
 					for the user. It seems that it can only be fixed by the addition of strict limits around the
 					drawing area - this is something that will take some consideration and is already planned for a
-					later sprint, so I will leave this bug for now in the interest of prioritising
+					later sprint, so I will leave this bug for now in the interest of prioritising.
 				</li>
+				<br>
 				<li>
 					The “guide” circle in the centre of the temporary rectangle that is shown while the user is
 					dragging does not resize with the square. While this has no impact on the program’s functionality,
 					it looks awkward and means that the user is not actually assisted by its presence as intended. I
 					believe it could be fixed by making the radius responsive to the dimensions of
 					the rectangle it is contained in, e.g.:
-					<pre style="font-size: 1.5em;">
+					<pre style="font-size: 1em">
 					<code class="javascript">
 						if(this.h < this.w){
 								this.r = Math.abs(this.h/10)
@@ -95,27 +97,168 @@
 								this.r = Math.abs(this.w/10)
 							}</code>
 					</pre>
+					Here, the drawStrokeCircle function (the function for the guide circle) is able to recognise whether
+					the width is less than the height or vice versa, and then make sure its radius stays
+					smaller than it.
 				</li>
 			</ol>
+				<br>
+				<h3>Final test</h3>
+				<video class="center" controls>
+					<source src="assets/video/sprint_one_test_two.mov" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<p></p>
 				</p>
  	<h2>Reflection</h2>
+				<p>As shown in the test above, the fixes applied to bug #2 found in the initial program test have been
+				successful. Bug #1 has been added to the project backlog to be fixed in a later sprint.<br><br> On the
+					whole
+				this could be considered a successful sprint. Although the program is still extremely basic, I have a
+				working canvas and an interactive platform, important fundamentals that will allow me to work on adding
+				to the program in an efficient way. I have also been able to identify two bugs and fix one of them.
+					<br><br> I think the next sprint should give the user more choice
+				over how they use the program - in its current state, it's pretty boring. To allow the user to choose,
+				I will have to code buttons and add some very basic shapes to the program's repertoire (e.g. a circle,
+				line, and ellipse. I already have the code for these as they make up the "guide" shapes, making these
+					additions quick and easy, allowing me to focus on the more complex code for buttons.)
+					The buttons are another important fundamental that must work before I can
+					add any more complicated functions, as this program is intended to be user-oriented and most of the
+					planned features will simply be providing the user with new options. </p>
 <hr>
-<h1>Sprint Two</h1>
+<h1 href="#stwo">Sprint Two</h1>
 				<h2>Aim</h2>
+					<p>By the end of this sprint, the user should be able to draw either a rectangle, circle, line or
+					an ellipse using buttons. </p>
+				<h2>To-do</h2>
+				<img class="img-responsive" src="assets/img/sprint_two_board.png" alt="">
 				<h2>Planning</h2>
-				<h2>Boards</h2>
-				<p>Link to the canvas Page</p>
+				<div class="col-container">
+					<div class="col">
+					<img class="img-responsive" src="assets/img/sprint_two_plan_one.JPG" alt="">
+						</div>
+					<div class="col">
+					<img class="img-responsive" src="assets/img/sprint_two_plan_two.JPG" alt="">
+						</div>
+					<div class="col">
+					<img class="img-responsive" src="assets/img/sprint_two_plan_three.JPG" alt="">
+						</div>
+					</div>
 				<h2>Testing</h2>
-				<h2>Reflections</h2>
+				<h3>Component test #1 - new shapes</h3>
+				<img class="img-responsive" src="assets/img/sprint_two_comptest_one.png" alt="">
+				<p>This screenshot shows the successful implementation of part one of this sprint - the new shapes,
+				drawn using their "basic" functions.</p>
+				<h3>Component test #2 - drawing new shapes</h3>
+				<video class="center" controls>
+					<source src="assets/video/sprint_two_comptest_two.mov" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<p>This video shows an early test of the new shapes added to the program - the ellipse, circle, and
+					line. Although the code is functional, some problems are revealed that interfere with the program's
+					usability.<ol>
+				<li>Placeholder code has been used at this stage, with the variable "this.choice" deciding
+					which shape is to be drawn. This will be changed at the next step of this sprint when buttons are
+					added - since the goal is for the user to be able to make changes without having to change the base
+					code. because buttons have not yet been added. However, at this stage it is impossible for multiple
+					shapes to be drawn on the canvas at once, because the page needs to be refreshed each time the
+					drawing shape is changed. <br><br></li>
+				<li>It appears that the bug found and fixed in Sprint One, where the guide circle inside the rectangle
+				did not resize appropriately, was not fixed after all. This is because the code the guide circle uses
+				to determine whether it should be sized according to the width or the height relied on an equation that
+				calculated the width/height by subtracting the xMouse or yMouse value from the xStart or yStart
+					value, then. However, this doesn't work because the user is able to make the width or height
+					negative by simply dragging the mouse left or up from the Start point. Therefore, if the width is
+				calculated to be -300, and the height is 30, the computer sees the width as smaller and therefore the
+				radius resizes to be 1/10 of 300 (30) instead of 1/10 of 30 (3). This problem will require some
+				consideration and different approaches and there is still a significant amount of work required for this
+					sprint, so fixing it will be added to the agenda for Sprint Three.<br><br></li>
+				<li>The final problem is with the guide shapes for the circle. The circle was added so the user had an
+				option of creating the "perfect" shape, as an alternative to the ellipse. However, there is no
+				equivalent "perfect" guide shape (which would be a square) to match it. The rectangle as its guide shape
+				does not resize appropriately to the circle, because the width and the height are different. </li>
+			</ol>
+				<div class="col-container">
+					<div class="col">
+						<h3>Circle - error correction</h3>
+						<img class="img-responsive" src="assets/img/sprint_two_error_one.jpg"></div>
+					<div class="col">
+						<h3>Final verdict</h3>
+						<p>After solutions 1 and 2 proved unsuccessful, I began planning for solution
+					#3, or the square function. However, during this time I realised that even a successful square or
+					circle would be very restrictive to the user's freedom of movement, because it can only be expanded
+					or contracted along a diagonal centre-line. This is true of squares even in programs such as Google
+					Draw; by nature, the "perfect" shape is restrictive. I have decided, therefore, to scrap both the
+					square and the circle functions. I believe the purpose of these functions can be much more
+						efficiently served by the user simply choosing the rectangle or ellipse option, and if necessary
+						use the grid as a guide to attain their desired proportions. Meanwhile, the user will not have
+						to deal with the irritation of strict limits being placed on their range of movement - something
+						that is rather the antithesis of the theoretical freedom a drawing program should allow. </p></div>
+				</div>
+				<h3>Component test #3 - buttons</h3>
+				<video class="center" controls>
+					<source src="assets/video/sprint_two_comptest_three.mov" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<p>This short video shows the buttons, still without any significant functionality, successfully
+					recognising (changing colour) when
+				the mouse is inBounds and when the button is selected.</p>
+				<h3>Final test</h3>
+				<video class="center" controls>
+					<source src="assets/video/sprint_two_test.mov" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<h2>Reflection</h2>
+				<p>As shown in the test above, the goals of this sprint have been met - the program now has a working
+				button class as well as ellipse and line functions, although the intended circle class was scrapped.
+				<br><br> To be fixed in the next sprint is the problem with the guide circle found when a rectangle is
+				being drawn. The cause has been identified, and the fix will be part of the planning for sprint three.
+				<br><br> In terms of general extension of the program, the next steps for this program are to allow the
+					user the option
+				not just to choose their shapes, but to choose the characteristics of those shapes - in sprint three,
+				they should be able to toggle stroke & fill and have some influence over stroke and fill styles.
+				<br><br>
+					While reviewing the test, a few possible improvements have occurred to me. <br><br>
+					First, there should be
+					more differentiation between
+					the "guide shapes" that the user sees while drawing a shape and the temporary outline of the actual
+					shape - perhaps this could be differentiated by having the guide shapes as dotted lines, and the
+					temporary version of the final shape as a solid one.<br><br>
+					Second, there is currently no stroked edge around a button, and a selected button is indicated by a
+					transparent fill shade. However, the plan for this sprint is to offer the user with a colour palette
+					that allows them to choose the colour they want. If the appearance of a selected button is indicated
+					by changing the colour of the button, this may cause confusion. Therefore, I would like to alter
+					this functionality in the next sprint by adding a stroke around the buttons whenever the button is
+					 selected, instead - this will align nicely with the main goal of the sprint.
+				</p>
 <hr>
 <h1>Sprint Three</h1>
 				<h2>Aim</h2>
+				<p>By the end of this sprint, the user should be able to toggle stroke & fill for their shapes, &
+				dictate their colour. I also aim to solve a couple of minor glitches held over from the previous sprint.
+				</p>
+				<h2>To-do</h2>
 				<h2>Planning</h2>
-				<h2>Boards</h2>
 				<p>Link to the canvas Page</p>
 				<h2>Testing</h2>
 				<h2>Reflections</h2>
 <hr>
+				<h1>Sprint Four</h1>
+				<h2>Aim</h2>
+				<h2>To-do</h2>
+				<h2>Planning</h2>
+				<p>Link to the canvas Page</p>
+				<h2>Testing</h2>
+				<h2>Reflections</h2>
+				<hr>
+				<h1>Sprint Five</h1>
+				<h2>Aim</h2>
+				<h2>To-do</h2>
+				<h2>Planning</h2>
+				<p>Link to the canvas Page</p>
+				<h2>Testing</h2>
+				<h2>Reflections</h2>
+				<hr>
 <h1> Relevant Implications Summary</h1>
  <hr>
  <hr>
@@ -140,7 +283,7 @@
 					<source src="assets/vids/littleTest.mp4" type="video/mp4">
 				  Your browser does not support the video tag.
 				  </video>
-					<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+					<p>I hate you WebStorm</p>
 					<hr>
 
 					<!-- Responsive images -->
@@ -151,11 +294,11 @@
                 <div class="col-container">
                 <div class="col">
                <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation ullamcorper</a> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel.</p>
+                <p>I hate you WebStorm, <a href="#">I hate you WebStorm,</a>I hate you WebStorm</p>
                 </div>
                  <div class="col">
                 <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation ullamcorper</a> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel.</p>
+                <p>I hate you WebStorm, <a href="#">I hate you WebStorm,</a> I hate you WebStorm</p>
                 </div>
                 </div>
                 <hr>
@@ -166,33 +309,24 @@
 					<h3>Unordered list</h3>
 					<p>Unordered lists are used to markup lists where list items do not require numbering.</p>
 					<ul>
-						<li>Ut wisi enim ad minim veniam</li>
-						<li>Quis nostrud exerci tation</li>
-						<li>Lamcorper suscipit lobortis nis</li>
-						<li>Ut aliquip ex ea commodo consequat</li>
-						<li>Duis autem vel eum iriure dolor</li>
+						<li>UI hate you WebStorm</li>
+						<li>I hate you WebStorm</li>
 					</ul>
 					<hr>
 
 					<h3>Ordered list</h3>
 					<p>Ordered lists are used to markup lists where list items require numbering.</p>
 					<ol>
-						<li>Hendrerit in vulputate velit esse</li>
-						<li>Olestie consequat</li>
-						<li>Vel illum dolore eu feugiat</li>
-						<li>Nulla facilisis at vero eros</li>
-						<li>Accumsan et iusto odio</li>
+						<li>I hate you WebStorm</li>
+						<li>I hate you WebStorm</li>
 					</ol>
 					<hr>
 
 					<h3>Unstyled list</h3>
 					<p>You can make the list unstyled using the <code>list-unstyled</code> class.</p>
 					<ul class="list-unstyled">
-						<li>Ut wisi enim ad minim veniam</li>
-						<li>Quis nostrud exerci tation</li>
-						<li>Lamcorper suscipit lobortis nis</li>
-						<li>Ut aliquip ex ea commodo consequat</li>
-						<li>Duis autem vel eum iriure dolor</li>
+						<li>I hate you WebStorm</li>
+						<li>I hate you WebStorm</li>
 					</ul>
 					<hr>
 

@@ -48,4 +48,3 @@ class Main extends InteractiveObject{
 Main.prototype.strokeRect = strokeRect
 Main.prototype.drawLine = drawLine
 Main.prototype.drawStrokeCircle = drawStrokeCircle
-

@@ -1,62 +1,124 @@
-class Button extends InteractiveObject {
-    constructor(x, y, w, h, fillC, over, selected, strokeC, text, textColour) {
-        super();
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.fillC = fillC;
-        this.current_fill = fillC;
-        this.over = over;
-        this.selected = selected;
-        this.strokeC = strokeC;
-        this.text = text;
-        this.textColour = textColour;
-        this.inBounds = false;
-    }
-    update(){
-        // checks if get_boundary is true or false
-        this.inBounds = this.getBoundary(this.x,this.y, this.w, this.h,
-            this.xMouse, this.yMouse)
-        let fill = this.fill;
-        // changes colour of button based on whether colour is being hovered over or just selected
-        if(Button.selected === this){
-            fill = this.selected
-        }
-        else if (this.inBounds){
-            fill = this.over
-        }
-        this.draw(this.x,this.y,this.w,this.h,fill, this.stroke,this.text,
-            this.textColour)
+class Main extends InteractiveObject{
+    constructor(){
+        super()
+        this.w = 0;
+        this.h = 0;
+        this.rotation = 0;
+        this.startAngle = 0;
+        this.endAngle = 2*Math.PI;
+        this.objectSet = [];
+        this.choice = "Circle";
     }
     mClick(){
-        if(this.inBounds){
-            Button.selected = this;
+        console.log(Button.selected)
+        let choice = Button.selected.text;
+        console.log(choice)
+        this.choice = choice
+    }
+    mUp(e, temp){
+        super.mUp(e);
+        if (this.choice === "Rectangle"){
+            let temp = new Rectangle(this.xStart, this.yStart, this.h, this.w, "rgba(0,0,0,0.5)")
+            this.objectSet.push(temp)
+            console.log("rectangle complete")
+        }
+        else if (this.choice === "Ellipse"){
+            let temp = new Ellipse(this.xC,this.yC,this.radiusX,this.radiusY,this.rotation,this.startAngle,
+                this.endAngle,"rgba(0,0,0,0.5)")
+            this.objectSet.push(temp)
+            console.log("ellipse complete")
+        }
+        else if (this.choice === "Circle"){
+            let temp = new Circle(this.xC,this.yC,this.r,this.startAngle,
+                this.endAngle,"rgba(0,0,0,0.5)")
+            this.objectSet.push(temp)
+            console.log("circle complete")
+        }
+        else if (this.choice === "Line"){
+            let temp = new Line(this.xStart,this.yStart,this.x2,this.y2,"rgba(0,0,0,0.5)",2)
+            this.objectSet.push(temp)
+            console.log("line complete")
+        }
+        else if (this.choice === "Square"){
+            let temp = new Square(this.xStart,this.yStart,this.w,"rgba(0,0,0,0.5)")
+            this.objectSet.push(temp)
+            console.log("line complete")
         }
     }
-    // checks if location of the mouse (x_m,y_m) is inside the buttons' boundaries (x,y,w,h) and returns
-    getBoundary(x,y,w,h,x_m,y_m){
-        if(x_m>x && x_m<x+w && y_m>y && y_m<y+h){
-            return true;
+    update(){
+        this.x2 = this.xMouse;
+        this.y2 = this.yMouse;
+        this.w = this.xMouse - this.xStart;
+        this.h = this.yMouse - this.yStart;
+        this.r = Math.abs(this.w/2);
+        this.radiusX = Math.abs(this.w/2);
+        this.radiusY = Math.abs(this.h/2);
+        this.xC = this.xStart+this.w/2;
+        this.yC = this.yStart+this.h/2;
+        for(let i = 0; i<this.objectSet.length; i++){
+            this.objectSet[i].update()
         }
-        else{
-            return false;
+        if(this.mouseIsDown){
+            this.draw();
         }
     }
-    draw(x,y,w,h,fillC,strokeC, text, textColour){
-        ctx.beginPath();
-        ctx.rect(x,y,w,h);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = s;
-        ctx.fillStyle = c;
-        ctx.fill();
-        ctx.stroke();
-        let myFont = "bold 50 px 'Trebuchet MS', Verdana, sans-serif";
-        ctx.textBaseline = 'middle';
-        ctx.textAlign = 'center';
-        ctx.font = myFont;
-        ctx.fillStyle = textColour;
-        ctx.fillText(text, x + w/2, y + h/2)
+    draw() {
+        let x = this.xStart
+        let y = this.yStart
+        let w = this.w
+        let h = this.h
+        let r = this.r
+        let rX = this.radiusX
+        let rY = this.radiusY
+        let rotation = this.rotation
+        let startAngle = this.startAngle
+        let endAngle = this.endAngle
+        let xC = this.xC
+        let yC = this.yC
+        let x2 = this.x2
+        let y2 = this.y2
+        if (this.choice === "Rectangle"){
+            if(h < w){
+                r = Math.abs(h/10)
+            }
+            else if(h > w){
+                r = Math.abs(w/10)
+            }
+            this.tempRect(x,y,w,h);
+            this.tempLine(x,y,x+w,y+h)
+            this.tempLine(x,y+h,x+w,y)
+            this.tempCircle(x+w/2,y+h/2,r)
+        }
+        else if (this.choice === "Square"){
+            this.tempSquare(x,y,w);
+            this.tempLine(x,y,x+w,y+w)
+            this.tempLine(x,y+w,x+w,y)
+            this.tempCircle(x+w/2,y+h/2,r)
+        }
+        else if (this.choice === "Ellipse"){
+            this.tempEllipse(xC,yC,rX,rY,rotation,startAngle,endAngle)
+            this.tempRect(x,y,w,h);
+            this.tempLine(x,y,x+w,y+h)
+            this.tempLine(x,y+h,x+w,y)
+        }
+        else if (this.choice === "Circle"){
+            this.tempCircle(xC,yC,r)
+            if (w>h){
+                this.tempRect(x,y,r*2,r*2)
+            }
+            else if (w<h) {
+                this.tempRect(x, y, w,w)
+            }
+            this.tempLine(x,y,x+w,y+h)
+            this.tempLine(x,y+h,x+w,y)
+        }
+        else if (this.choice === "Line"){
+            this.tempLine(x,y,x2,y2)
+        }
     }
 }
-Button.selected = null;
+Main.prototype.tempRect = tempRect
+Main.prototype.tempLine = tempLine
+Main.prototype.tempCircle = tempCircle
+Main.prototype.tempEllipse = tempEllipse
+Main.prototype.tempSquare = tempSquare

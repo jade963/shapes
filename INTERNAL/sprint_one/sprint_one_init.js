@@ -124,6 +124,12 @@ function drawLine(x_1,y_1,x_2,y_2,strokeC,strokeW){
 }
 
 function drawStrokeCircle(x,y,r,strokeC,strokeW){
+    if(this.h < this.w){
+        this.r = Math.abs(this.h/10)
+    }
+    else if(this.h > this.w) {
+        this.r = Math.abs(this.w / 10)
+    }
     ctx.strokeStyle = strokeC;
     ctx.lineWidth = strokeW;
     ctx.beginPath();
