@@ -34,12 +34,13 @@
 			<div class="nav-bar">
 				<ul class="nav">
 					<li><a href="#brief">Brief</a></li>
-					<li><a href="#sone">Sprint One</a></li>
-					<li><a href="#stwo">Sprint Two</a></li>
+					<li><a href="#sprint_one">Sprint One</a></li>
+					<li><a href="#sprint_two">Sprint Two</a></li>
+					<li><a href="#sprint_three">Sprint Three</a></li>
 				</ul>
 			</div>
 			<div class="content">
-					<h1>Brief</h1>
+					<h1><a id="brief">Brief</a></h1>
 				<p>This project aims to create a basic drawing program after the fashion of Google Draw, for the use of
 					 students in schools. The program should allow students to draw customisable shapes and lines. It
 					needs to be based in a canvas environment.
@@ -49,7 +50,7 @@
 				<img class="img-responsive" src="assets/img/project_backlog.png" alt="">
 				<hr>
     <!-- Heading levels -->
-    <h1 href="#sone">Sprint One</h1>
+    <h1><a id="sprint_one">Sprint One</a></h1>
 				<h2>Aim</h2>
 				<p>By the end of this sprint the program should have a canvas, and the user should be able to click and
 				drag to create a rectangle.</p>
@@ -109,7 +110,6 @@
 					Your browser does not support the video tag.
 				</video>
 				<p></p>
-				</p>
  	<h2>Reflection</h2>
 				<p>As shown in the test above, the fixes applied to bug #2 found in the initial program test have been
 				successful. Bug #1 has been added to the project backlog to be fixed in a later sprint.<br><br> On the
@@ -126,7 +126,7 @@
 					add any more complicated functions, as this program is intended to be user-oriented and most of the
 					planned features will simply be providing the user with new options. </p>
 <hr>
-<h1 href="#stwo">Sprint Two</h1>
+<h1> <a id="sprint_two">Sprint Two</a> </h1>
 				<h2>Aim</h2>
 					<p>By the end of this sprint, the user should be able to draw either a rectangle, circle, line or
 					an ellipse using buttons. </p>
@@ -232,17 +232,194 @@
 					 selected, instead - this will align nicely with the main goal of the sprint.
 				</p>
 <hr>
-<h1>Sprint Three</h1>
+<h1><a id="sprint_three">Sprint Three</a></h1>
 				<h2>Aim</h2>
 				<p>By the end of this sprint, the user should be able to toggle stroke & fill for their shapes, &
 				dictate their colour. I also aim to solve a couple of minor glitches held over from the previous sprint.
 				</p>
 				<h2>To-do</h2>
+				<img class="img-responsive" src="assets/img/sprint_three_board.png">
 				<h2>Planning</h2>
-				<p>Link to the canvas Page</p>
-				<h2>Testing</h2>
-				<h2>Reflections</h2>
-<hr>
+				<div class="col-container">
+					<div class="col">
+				<img class="img-responsive" src="assets/img/sprint_three_plan_one.jpg">
+					</div>
+					<div class="col">
+					<img class="img-responsive" src="assets/img/sprint_three_plan_two.jpg">
+					</div>
+					<div class="col">
+						<img class="img-responsive" src="assets/img/sprint_three_plan_three.jpg">
+					</div>
+					<div class="col">
+						<img class="img-responsive" src="assets/img/sprint_three_plan_four.jpg">
+					</div>
+					<h2>Testing</h2>
+				<h3>Component test #1 - changes to button selection</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_three_comptest_one.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the working change in button selection. <br>
+					<h3>Component test #2 - guide circle bug fix</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_three_comptest_two.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the successful bug fix, using the planned code.</p>
+					<h3>Component test #3 - colour palette</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_three_comptest_three.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the semi-successful implementation of the colour palette - it appears that you
+						have to click twice to get anything to appear at all on the screen, which was not a problem
+						in sprint two. This will be added to the to-do list for this sprint, to be corrected at the end.
+					</p>
+					<h3>Component test #4 - "Togglers"</h3>
+					<div class="col-container">
+						<div class="col">
+					<video class="center" controls>
+						<source src="assets/video/sprint_three_comptest_four.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+							</div>
+						<div class="col">
+							<img src="assets/img/sprint_three_compfour_code.png">
+							</div>
+						<p>The implementation of the "Toggler" class has been completed with partial success.
+							The "Toggle" switches themselves work fine as essentially a rework of the button class, with
+							 some alterations to ensure that the Togglers are independent objects (so that more than one
+							 Toggler can be selected at a time.) When stroke or fill is "on", they are highlighted and
+							the text changes to reflect the status. Unfortunately, the code used in class Main to pass
+							the information from the Togglers on to the draw() function doesn't actually work, and
+							using the Togglers has no influence over stroke or fill. As shown by the console log,
+							none of the code currently being used (see screenshot on the left above) is actually being
+							received by the program. As can be seen from the red errors in the console log, the problem
+							 is being caused by the program's inability to understand and interpret
+							"Toggler.selected.type", a component of the while loops used here. To double-check this, I
+							replaced the entire block of code pictured with the statements:
+						<pre style="font-size: 1em">
+						<code class="javascript">
+							this.fillChoice = false
+							this.strokeChoice = true</code></pre>
+							This attained the desired result of a stroked box with no fill, which means that the problem
+							 is certainly located inside the class Main code, and not the code in the Toggler class.
+							Because this component is not working and will therefore require time and planning to
+							complete, I will bump one of the remaining components for this sprint, which would allow
+						the user to influence the width and style of their shape's stroke. This will be added to the
+						project backlog at a later date. However, the other planned component, allowing the user to
+						change stroke as well as fill colour, will remain as it should theoretically only need a few
+						lines of code to implement. <br><br>
+							One possibility for the current glitch is that the code calls "Toggler.selected", even when
+						both Togglers are
+							selected at once; as a result, when is asked to find which Toggler it is
+							by identifying whether .type === "Fill" or "Stroke, it gets stuck at trying to figure out
+							how to find "Toggler.selected". More specificity may be needed, therefore, I tested the
+							following:
+						<pre style="font-size: 1em">
+						<code class="javascript">
+							console.log(TStroke.status)
+							console.log(TFill.status)
+							</code> </pre>
+							"TStroke.status" and "TFill.status" were correctly printed in the console log. This means
+							that "Toggler.selected" can be replaced with either "TStroke" or "TFill", and the "while"
+							loop currently being used will be obsolete and can be replaced with a series of "if"
+							statements, e.g.:
+							<pre style="font-size: 1em">
+						<code class="javascript">
+							if (TStroke.status === "on"){
+							this.strokeChoice = true;
+							}
+							else if (TStroke.status === "off"){
+							this.strokeChoice = false;
+							}
+							if (TFill.status === "on"){
+							this.fillChoice = true;
+							}
+							else if (TFill.status === "off"){
+							this.fillChoice = false;
+							}
+							</code> </pre>
+						</p>
+						<h3>Test - Togglers bug fix</h3>
+						<video class="center" controls>
+							<source src="assets/video/sprint_three_comp_four_fix.mov" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+						</div>
+					<p>
+					This video shows the successful bug fix, using the planned code. The "Toggler" component of this
+						sprint is now complete.
+					</p>
+					<h3>Component test #5 - the Colour_Button class</h3>
+					<div class="col-container">
+						<div class="col">
+							<video class="center" controls>
+								<source src="assets/video/sprint_three_comptest_five.mov" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+						<div class="col">
+						<img class="img-responsive" src="assets/img/sprint_three_compfive_code.png">
+						</div>
+				</div>
+				<p>
+					This video shows the new Colour_Buttons working with the code above - clearly, there are pre-set
+					fill and stroke colours, which the program is intended to default to at the beginning when neither
+					of the Colour_Buttons has been selected. This also prevents undeclared variable errors. However, as
+					 can be seen occurring in the video, when the user changes the fill colour after changing the stroke
+					 colour with the buttons, the stroke colour reverts to the pre-set colour while the fill colour
+					changes as it should. This was an oversight of my planning; clearly, there will need to be a
+					method of storing the colour that the fill or stroke has been changed to. The easiest way to do this
+					 in my mind would be by implementing an array to which fill or stroke information is added every
+					 time one of the Colour_Buttons is clicked, e.g.: (the following in addition to adding
+					this.strokeSet, this.fillSet, this.strokeColour and this.fillColour variables in the constructor)
+					<pre style="font-size: 1em">
+						<code class="javascript">
+							if (this.edit_colourChoice === "Edit stroke colour"){
+								strokeColour = Swatch.selected.fillC
+								this.strokeSet = [strokeColour]
+								fillColour = this.fillSet[0]
+							}
+							else if (this.edit_colourChoice === "Edit fill colour"){
+								fillColour = Swatch.selected.fillC
+								this.fillSet = [fillColour]
+								strokeColour = this.strokeSet[0]
+							}
+							</code> </pre>
+				</p>
+					<h3>Final test - Colour_Button bug fix</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_three_comp_five_fix.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the Colour_Button class, finally working, using the suggested code above.<p/>
+					<h2>Reflections</h2>
+					As shown in the test above, with the Colour_Button fixed, four out of five of the sprint's original
+					goals have been met, with one of the planned components being dropped due to unexpected setbacks
+					while working on components four and five. This will be returned to the project backlog where it
+					will be added in a later sprint. <br><br>
+					The program now allows the user to toggle stroke and fill for a shape and choose both its stroke and
+					 fill colours. I am mostly happy with the approach I used in this sprint; most of the problems were
+					caused by oversights or mistakes in the plannings and not altogether misguided approaches. There is
+					one remaining bug, in that when the program is first booted up, you need to click once before the
+					program begins drawing. I am assuming this is a problem with the code in the "Main" control class,
+					and will review possible causes before planning my next sprint, with the intent to fix this problem
+					sometime in Sprint Four. <br><br>
+					The plan for Sprint Four is to introduce a smaller "drawing area" to the right of the "dashboard"
+					area so that the user's controls and their canvas are separate. This is not only visually more
+					convenient, but will prevent the irritating occurrence of shapes being drawn accidentally when the
+					user clicks on a button/swatch/toggler etc., something that happens regularly and may cause
+					confusion for the user. <br><br>
+					While testing this sprint, I have also had several thoughts about how to make this program better in
+					 the future. First of all, there should be some changes made to the "guide" shapes - in the last
+					sprint I suggested that they should have dashed edges instead of solid ones, to convey their
+					impermanence. I still think this; now I also believe that
+					the colour of the guide shapes should be a transparent version of colour the shape will turn out to
+					be. This is something I will look at in a sprint of its own. Another aspect I believe could be
+					improved is the guide shape for the ellipse; having two lines form an 'X' shape instead of a '+' is
+					much less helpful, and this is a very small, easy-to-fix detail that I can change in my next sprint.
+					<hr>
 				<h1>Sprint Four</h1>
 				<h2>Aim</h2>
 				<h2>To-do</h2>
@@ -357,6 +534,7 @@
 			<div class="footer">
 				&copy; Copyright 2015
 			</div>
+		</div>
 		</div>
 	</body>
 </html>
