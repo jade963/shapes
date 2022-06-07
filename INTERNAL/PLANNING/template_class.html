@@ -557,7 +557,14 @@
 					<h2>To-do</h2>
 					<img class="img-responsive" src="assets/img/sprint_5_board.png">
 					<h2>Planning</h2>
-					<p>Link to the canvas Page</p>
+					<div class="col-container">
+						<div class="col">
+							<img class="img-responsive" src="assets/img/sprint_5_plan_1.jpg">
+						</div>
+						<div class="col">
+							<img class="img-responsive" src="assets/img/sprint_5_plan_2.jpg">
+						</div>
+					</div>
 					<h2>Testing</h2>
 					<h3>Component test #1 - shortClick_Button class</h3>
 					<video class="center" controls>
@@ -634,16 +641,68 @@
 					<hr>
 					<h1><a id="interlude">Interlude: progress check</a></h1>
 					<h2>Updated project backlog</h2>
-					
+					<img class="img-responsive" src="assets/img/interlude_backlog.png">
 					<h2>"Ideal ending" sketch</h2>
+					<img class="img-responsive" width="50%" src="assets/img/interlude_planning.jpg">
+					<h2>Updated canvas with placeholders</h2>
+					<img class="img-responsive" src="assets/img/interlude_canvas.png">
 					<hr>
 					<h1><a id="sprint_six">Sprint Six</a></h1>
 					<h2>Aim</h2>
+					<p>The aim of this sprint is to offer the user more customisation options. When it is finished,
+					they will be able to edit stroke width and style, which will affect both the stroke of regular
+					shapes and formal Lines.</p>
 					<h2>To-do</h2>
+					<img class="img-responsive" src="assets/img/sprint_6_board.png">
 					<h2>Planning</h2>
-					<p>Link to the canvas Page</p>
+					<img class="img-responsive" width="50%"  src="assets/img/sprint_6_plan_1.jpg">
+					<img class="img-responsive" width="50%" src="assets/img/sprint_6_plan_2.jpg">
 					<h2>Testing</h2>
+					<h3>Component test #1 - new classes implemented</h3>
+					<img class="img-responsive" src="assets/img/sprint_6_comp1_test.png">
+					<p>This screenshot shows the newly implemented strokeWidth_Button and strokeStyle_Button classes.
+						Since their code is identical to the original Button, there were no problems with adding these
+						to the program. There are some slight aesthetic concerns, but aesthetics are not currently
+					a priority. </p>
+					<h3>Component test #2 - changing lineWidth</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_6_comp2_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the program allowing the user to change the strokeWidth of a given shape. This
+					was again unexpectedly straightforward to implement, with no bugs and no corrections or alterations
+					needed (a welcome change.) However, the video also reveals a way in which the program could
+					be improved. <br><br>
+					Although it has been suggested well before and was added to the project backlog at
+					one point, it is extremely obvious with this update that a guide shape should match the strokeWidth
+					and colour of the shape that will be created. The black guides are difficult to distinguish from
+					existing shapes and provide a very poor "guide" as to how the shape will look - somewhat
+					counterintuitive. Therefore, this will be changed in a later sprint. </p>
+					<h3>Component test #3 - lineDash</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_6_comp3_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>Although the new lineDash element does work, the unfortunate drawback is that during the testing
+					process, I discovered several anomalies. Firstly, for no apparent reason, the guide shapes
+						<i>already</i> adopt the relevant "dash" status - but only on the second click. This could
+						be overlooked, except that it could easily create confusion for the user. I will attempt to
+						understand fix this issue when I am making other changes to the guide shapes.
+						<br><br>
+						I also discovered the "edit fill colour" and "edit stroke colour" buttons no longer work, and
+					when one or the other is selected, both fill and stroke change to Swatch.selected.fillC. Looking
+					back at previous sprints, I realised this problem was also present in Sprints Four and Five, and
+					was simply overlooked as the testing did not usually concern this feature. After examining Spring
+					Three where the Colour_Buttons were originally implemented, I realised that the problem was the
+					movement of a statement from mClick to mDown. After putting this statement back in mDown, the
+					problem was solved. </p>
 					<h2>Reflections</h2>
+					<p>This sprint has been completed with some success. The original goals have been met, but not
+					perfectly, and there are bugs that have had to be put aside in the interest of continuing progress;
+					because they all relate to the guide shapes, which I would like to improve anyway, I will put all of
+						 this into its own sprint in the near future (that is, the guide shape lines transforming
+						appropriately
+						based on the size, colour, and style of the shape the user is actually drawing.)</p>
 					<hr>
 					<h1><a id="sprint_seven">Sprint Seven</a></h1>
 					<h2>Aim</h2>

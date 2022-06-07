@@ -64,9 +64,6 @@ class Main extends InteractiveObject{
             fillColour = this.fillSet[0]
         }
         else if (this.edit_colourChoice === "Edit fill colour"){
-            if(this.fillSet[1]) {
-             Swatch.selected = this.fillSet[1]
-            }
             fillColour = Swatch.selected.fillC
             this.fillSet = [fillColour, Swatch.selected]
             strokeColour = this.strokeSet[0]
