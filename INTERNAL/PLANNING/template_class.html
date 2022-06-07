@@ -39,6 +39,13 @@
 					<li><a href="#sprint_three">Sprint Three</a></li>
 					<li><a href="#sprint_four">Sprint Four</a></li>
 					<li><a href="#sprint_five">Sprint Five</a></li>
+					<li><a href="#interlude">Interlude</a></li>
+					<li><a href="#sprint_six">Sprint Six</a></li>
+					<li><a href="#sprint_seven">Sprint Seven</a></li>
+					<li><a href="#sprint_eight">Sprint Eight</a></li>
+					<li><a href="#sprint_nine">Sprint Nine</a></li>
+
+
 				</ul>
 			</div>
 			<div class="content">
@@ -540,15 +547,97 @@
 					accidentally go out of bounds, and they must be able to fix this so that their drawing is not ruined
 					 by this mistake.</p>
 				<hr>
-				<h1>Sprint Five</h1>
-				<h2>Aim</h2>
-				<h2>To-do</h2>
-				<h2>Planning</h2>
-				<p>Link to the canvas Page</p>
-				<h2>Testing</h2>
-				<h2>Reflections</h2>
-				<hr>
 					<h1><a id="sprint_five">Sprint Five</a></h1>
+					<h2>Aim</h2>
+					<p>The aim of this sprint is to implement clear, undo and redo buttons that give the user the
+						opportunity
+					 to correct their mistakes. I have also noticed during preliminary testing that the "edit fill
+					colour" button is no longer working; this was overlooked during Sprint Four testing, and must now
+					be fixed.</p>
+					<h2>To-do</h2>
+					<img class="img-responsive" src="assets/img/sprint_5_board.png">
+					<h2>Planning</h2>
+					<p>Link to the canvas Page</p>
+					<h2>Testing</h2>
+					<h3>Component test #1 - shortClick_Button class</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_5_comp1_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the test of the new class to be used for Clear, Undo, and Redo buttons. It
+						differs only from the original Button class in that it automatically deselects whenever the
+						mouse goes Up, (one line of code in the Main.mUp() function) and
+						was therefore very simple to implement, and worked as planned almost immediately. Next
+						 these buttons will be given their functions one by one.
+						<br><br>As for the
+						fix to "edit fill colour", it turned out not
+						to be necessary - the problem was caused by an experimental line of code for
+						something I had tried and then abandoned towards the end of Sprint Four. Removing this code
+						solved the problem instantly. <br><br>
+					One last thing I realised after this test was that I am beginning to run out of space in the control
+					/buttons area. This will need to be properly planned out, as I am tired of shifting everything
+					manually at the start of each sprint to make room for the new additions - this will be a task for
+					the beginning of Sprint Six.</p>
+					<h3>Component test #2 - the Clear Button</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_5_comp2_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows a successful test of the "Clear" button. As can be seen, it selects like a
+					normal button, and carries out its function immediately, before deselecting as soon as the user
+					completes another action (such as pressing another button or drawing a shape) so that they are able
+					to continue drawing without interruption. </p>
+					<h3>Component test #3 - the Undo Button</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_5_comp3_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the successful first test of the "Undo" button. This is the first time in this
+						entire project to date where something has worked on the first try with no glitches or
+						drawbacks.</p>
+					<h3>Component test #4 - the Redo Button</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_5_comp4_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the test of the "Redo" button. Clearly, there's a major problem: if the Redo
+					button is clicked too many times, the program crashes and stops working properly. However, I think
+					 this glitch is just an oversight and can be fixed by an if statement identical to the one used when
+					 the "Undo" button is clicked (that is, if there is nothing in removedSet, the program does not try
+					to run and therefore does not crash). See below: 					</p>
+					<pre style="font-size: 1em;">
+<code class="javascript">
+	if (this.removedSet.length > 0){
+                this.objectSet.push(this.removedSet[this.removedSet.length - 1])
+                this.removedSet.pop()
+            }
+    }</code>
+</pre>
+					<h3>Final test</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_5_comp4_fix.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<h2>Reflections</h2>
+					<p>As can be seen from the video above, I have successfully met the goals of this sprint. A minor
+					bug from the last sprint has been fixed, a new class has been added, and three functioning "clear",
+					"undo", and "redo" have been added to the canvas. This has huge implications for the user who is now
+					 able to fix any mistakes in their drawing, and most importantly addresses the problem of the last
+					sprint, where the program forces a shape to be drawn even if the user's mouse leaves the canvas by
+					accident. <br><br>
+					I have noticed in the course of this sprint that it is becoming more and more difficult to add new
+					buttons to the control panel. This is because of a lack of pre-planning as to what features will go
+					where. Therefore, I have decided that my next task is to re-assess the project backlog and create a
+					ultimate plan that will help me to rearrange the control panel to make room for all the planned
+					features, as well as create a clearer path forward (as I have finished all of the initially planned
+					sprints and am now on to "stretch goals"). </p>
+					<hr>
+					<h1><a id="interlude">Interlude: progress check</a></h1>
+					<h2>Updated project backlog</h2>
+					
+					<h2>"Ideal ending" sketch</h2>
+					<hr>
+					<h1><a id="sprint_six">Sprint Six</a></h1>
 					<h2>Aim</h2>
 					<h2>To-do</h2>
 					<h2>Planning</h2>
@@ -556,7 +645,23 @@
 					<h2>Testing</h2>
 					<h2>Reflections</h2>
 					<hr>
-					<h1>Sprint Five</h1>
+					<h1><a id="sprint_seven">Sprint Seven</a></h1>
+					<h2>Aim</h2>
+					<h2>To-do</h2>
+					<h2>Planning</h2>
+					<p>Link to the canvas Page</p>
+					<h2>Testing</h2>
+					<h2>Reflections</h2>
+					<hr>
+					<h1><a id="sprint_eight">Sprint Eight</a></h1>
+					<h2>Aim</h2>
+					<h2>To-do</h2>
+					<h2>Planning</h2>
+					<p>Link to the canvas Page</p>
+					<h2>Testing</h2>
+					<h2>Reflections</h2>
+					<hr>
+					<h1><a id="sprint_nine">Sprint Nine</a></h1>
 					<h2>Aim</h2>
 					<h2>To-do</h2>
 					<h2>Planning</h2>
