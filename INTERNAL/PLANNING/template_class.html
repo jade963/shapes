@@ -44,6 +44,9 @@
 					<li><a href="#sprint_seven">Sprint Seven</a></li>
 					<li><a href="#sprint_eight">Sprint Eight</a></li>
 					<li><a href="#sprint_nine">Sprint Nine</a></li>
+					<li><a href="#rel_imp">Relevant Implications</a></li>
+					<li><a href="#github">Github instructions</a></li>
+
 
 
 				</ul>
@@ -91,7 +94,6 @@
 					drawing area - this is something that will take some consideration and is already planned for a
 					later sprint, so I will leave this bug for now in the interest of prioritising.
 				</li>
-				<br>
 				<li>
 					The “guide” circle in the centre of the temporary rectangle that is shown while the user is
 					dragging does not resize with the square. While this has no impact on the program’s functionality,
@@ -702,15 +704,262 @@
 					because they all relate to the guide shapes, which I would like to improve anyway, I will put all of
 						 this into its own sprint in the near future (that is, the guide shape lines transforming
 						appropriately
-						based on the size, colour, and style of the shape the user is actually drawing.)</p>
+						based on the size, colour, and style of the shape the user is actually drawing.)<br><br>
+					The actual next steps to this program are adding more interesting shapes to it; that is, arrows
+					and triangles. This gives the user more choice than the three they are currently stuck with, and
+					makes the program more interesting as a whole. </p>
 					<hr>
 					<h1><a id="sprint_seven">Sprint Seven</a></h1>
 					<h2>Aim</h2>
+					<p>The aim for this sprint is to implement new shape options that the user can choose to draw -
+					the arrow, the triangle, and the semi- and quarte-ellipse shapes (to be toggled with the full
+						ellipse).</p>
 					<h2>To-do</h2>
+					<img src="assets/img/sprint_7_board.png" class="img-responsive">
 					<h2>Planning</h2>
-					<p>Link to the canvas Page</p>
+					<div class="col-container">
+						<div class="col">
+							<img src="assets/img/sprint_7_plan_1.jpg" class="img-responsive">
+						</div>
+						<div class="col">
+							<img src="assets/img/sprint_7_plan_2.jpg" class="img-responsive">
+						</div>
+					</div>
 					<h2>Testing</h2>
+					<h3>Component test #1 - Triangle class</h3>
+							<img src="assets/img/sprint_7_comp1_test.png" class="img-responsive">
+							<p>This test shows the test of the new Triangle class - the shape works as planned once
+							 given x1, y1, x2, y2 coordinates etc., which enables me to move on to adding a button.</p>
+							<video class="center" controls>
+								<source src="assets/video/sprint_7_comp1_test2.mov" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+							<p>This video shows the test of the new Triangle when called with a button. The only problem
+								appears to be with the stroked outline of the triangles
+							being drawn; when the stroke is set to "small dash", on at least one side there appears to
+								be a second line going over the top of the other line, creating extra dashes and an
+							irregular appearance, while when the stroke is set to "large dash", around half of the time
+							(why not all of the time is unclear) one line out of three appears solid while the others
+							are dashed. I am assuming that, as with the triangles with a "short dashed" outline, this
+							is a case of a second solid line overlapping the existing correct dashed line. Fixing this
+								 bug will be added to the task backlog for this sprint. </p>
+					<h3>Component test #2 - sub_Buttons</h3>
+					<div class="col-container">
+						<div class="col">
+							<video class="center" controls>
+								<source src="assets/video/sprint_7_comp2_test.mov" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+						<div class="col">
+							<p>This test shows the new class of buttons refusing to select when clicked; the console
+								log reveals an error
+								is being sprung by the "this.parent.selected" line of code. I will replace it with the following: </p>
+							<pre style="font-size: 1.5em;">
+<code class="javascript">
+	if (this.inBounds && this.amIDrawing === false && Button.selected.text === this.parent){
+            console.log(this.parent.text)
+            this.name.selected = this;
+        }</code>
+</pre>
+						</div>
+					</div>
+					<div class="col-container">
+						<div class="col">
+							<video class="center" controls>
+								<source src="assets/video/sprint_7_comp2_test2.mov" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+						<div class="col">
+							<p>This video initially shows the sub_buttons refusing to select while the parent_button is
+								selected. This is because there is currently a piece
+								code in the sub_button class that prevents any other Button from being selected while
+								the "parent" is selected - this appears to include the sub_Buttons. When this code is
+								taken out, the user is able to select the sub_Buttons, but they are not able to
+								re-select a Button.
+							<br><br>
+							<ol>
+								<li>
+									I have considered giving up and just making the small and large arrows separate
+									Button objects; however, this would only mean I have to face the same problem
+									when I begin to implement other shapes with variations (customisable numbers of
+									sides, styling, etc.). Ignoring this problem will result in a cluttered console,
+									with many buttons sharing limited space.
+								</li>
+								<br>
+							<li>
+								I have also considered the necessity of the "parent" button appearing at all, since it
+								has no real function except to appear selected. In the end I think I would rather keep
+								it to help with the visual organisation of the console area.
+							</li>
+							<br>
+							<li>
+								Previously in my planning I expressed the desire to make sure the "sub_buttons" could
+								not be selected if the "parent buttons" were not already selected. In hindsight this
+								seems fairly
+								redundant; therefore, going forward when the user clicks on a sub_button, that
+								 sub_button's parent button should become selected automatically. The original plan also
+								stipulated that when the "parent button" was clicked there should be a default
+								"sub_button" that is selected automatically. I still think this is a good idea, so
+								it'll remain.
+							</li>
+						</ol>
+							<p>As a result of all of this, I have concluded that I have been taking the wrong approach.
+							Instead of making the "parent" button a regular Button object and assigning a "child" object
+							 from the sub_Button class, I will make a parent_button class that is functionally identical
+							 to the Button, but connects only to the sub_button class.</p>
+							</ol>
+							 </p>
+						</div>
+						<div class="col">
+							<video class="center" controls>
+								<source src="assets/video/sprint_7_comp2_test3.mov" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+							</div>
+							<div class="col">
+								<pre style="font-size: 0.5em;" align="left">
+								<code class="javascript">
+									Main.mDown()
+										if (parent_Button.selected === null){
+											this.shapeChoice = Button.selected.text;
+											this.parentChoice = null;
+										}
+										else if (parent_Button.selected != null){
+											this.parentChoice = parent_Button.selected.text;
+											this.shapeChoice = null;
+										}
+
+									Main.mClick()
+										if (Button.selected){
+											parent_Button.selected = null;
+										}
+										if (parent_Button.selected){
+											Button.selected = null;
+										}
+									}</code>
+								</pre>
+								<p>The video on the left shows a test of the above code in Main.mDown(). Theoretically
+									it should mean that once the user clicks on a parent_Button, any regular Buttons
+									currently selected will deselect, and vice versa (just as multiple regular Button
+									objects cannot be simultaneously selected.) However, it doesn't work - in this case,
+									 depending on which "if" statement is placed above the other in Main.mClick(), it
+									becomes impossible to <i>ever</i> select a parent_Button after a Button is selected,
+									 and vice versa. Clearly, a new approach is required. Since the problem is in mClick
+									 I will be leaving mDown() untouched, and relocate information from Main.mClick to
+								Button.mClick and parent_Button.mClick. </p>
+							</div>
+						<div class="col">
+							<video class="center" controls>
+							<source src="assets/video/sprint_7_comp2_test4.mov" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+						</div>
+						<div class="col">
+							<p>This video shows the successful implementation of the suggested code. I am now confident
+							that the Button and parent_Button classes are working together as well as they need to, and
+							can begin to integrate sub_Buttons into this relationship. </p>
+						</div>
+						</div>
+					<div class="col-container">
+						<div class="col">
+							<video class="center" controls>
+								<source src="assets/video/sprint_7_comp2_test5.mov" type="video/mp4">
+								Your browser does not support the video tag.
+							</video>
+						</div>
+						<div class="col">
+							<p>While working on the sub_Buttons, several things became clear.
+								<ol>
+							<li>I was able to fix the bug with the triangle line dash - it was a small
+							oversight in the code that lead to an extra line being drawn from point C to point A after,
+							giving one out of three of the shape's edges a more solid appearance than the other two when
+							 line-dash is enabled. </li>
+							<br>
+							<li>While testing I noticed that the sub_Button deselects whenever its
+							parent button is selected, instead of only deselecting when a standard Button is selected.
+								I was unable to find a way to fix this error. Having become concerned that there is
+								no practical way to match parent_Buttons to their sub_Buttons, I decided to combine the
+								two classes into one "multi_Button". Each multi_Button has a "type" variable that
+								identifies whether it is a parent or a sub_Button, as well as a "shape" variable that
+								allows the mutli_Button to identify other related buttons (e.g. so that the "Arrow",
+								"Stick", and "Thick" buttons recognise when one of their group is selected, but does not
+								  react when a multi_Button of the "Ellipse" family is selected.
+								The video on the left shows the first test of this multi_Button class. As can be seen,
+								it works quite well - there is very simple placeholder code that identifies each object
+								by its actual name in order to have everything selecting and deselecting appropriately,
+								e.g.:
+								<pre style="font-size: 1em;" align="left">
+									<code class="javascript">
+										if (this.shape === "Arrow"){
+										BStickArrow.selected = true
+										BThickArrow.selected = false
+										}
+								</code>
+								</pre>
+								This code is very clunky and impractical, and makes adding new multi_Button objects
+								far more complex and time-consuming than it needs to be. It will be revisited shortly,
+								when the Ellipse multi_Buttons are added to the program.
+							</li>
+						</ol>
+							</p>
+						</div>
+					</div>
+					<h3>Component test #3 - Arrows & ellipses</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_7_comp3_test1.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows a test of all of the new shapes - the two varieties of the Arrow class and the
+					three varieties of the Ellipse class, two of which are new. These shapes are not currently connected
+					 to their buttons; however, this test does show that all of the new shape functions work, with the
+					exception of the quarter-ellipse - it doesn't work because it currently appears as an elliptical arc
+						 from point A to point B, with a second line drawn between point A and point B, when there needs
+						 to be a point C at a 90º angle from A & B. The design of this will need revisiting later.
+					<br><br>
+					In this test, the Ellipse multi_Buttons have been added. The actual multi_Button code has been left
+					in the same unsophisticated state as it was in the last video. As we see in the test, the
+					multi_Buttons belonging to the "Arrow" shape group do not deselect when the multi_Buttons belonging
+					to the "Ellipse" shape group . This proves that the original code is no longer suitable, and must
+					be made more flexible so that the program can handle the different groups of multi_Buttons. I
+					believe the most suitable way to do this is by assigning the various multi_Button objects to
+					groups, relevant to their shape, and then utilising "for" loops to ensure the buttons have the
+					proper sensitivity.</p>
+					<h3>multi_Buttons code restructure - planning</h3>
+					<img class="img-responsive" src="assets/img/sprint_7_plan_3.jpg" width="50%">
+					<h3>multi_Buttons code restructure - test</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_7_comp3_test2.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the successful results of the restructured multi_Button code. multi_Buttons now
+					select and deselect appropriately.</p>
+					<h3>Sprint 7 final test</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_7_final_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
 					<h2>Reflections</h2>
+					<p>As seen in the above test, all the goals of sprint 7 have been met. Four new
+					shapes and two new classes have been implemented, and several bugs fixed. The user is now able to
+					do significantly more with the program due to the addition of these shapes, and the multi_Button
+					class allows me to add far more customisable shapes in the future - in fact, it sets me up
+						particularly well for the next sprint, where I plan to add in a star with a customisable
+					number of sides.<br><br>
+					The final result of this sprint is not perfect. The borders of the quarter-ellipse are slightly
+					disconnected, which is unpleasant visually. For some reason, the arrow is the only shape where the
+					temporary guide shape picks up the line dash (even though guide shapes are supposed to be solid.)
+						 When multi_Buttons are selected, the pale grey outlines of the buttons that appear overlap with
+						 other buttons in the group in an unattractive way. Due to the enormous size of this sprint,
+						these improvements will have to be made at the beginning of the next sprint. <br><br>
+						There is also one problem which I am not certain I will be able to fix: the arrows and the half-
+						ellipse can only be drawn horizontally. This creates a lack of flexibility within the program.
+						Upon reviewing other drawing software such as Google Draw, I have realised that there is no real
+						 solution for this problem - other programs tend to compensate for this by adding an option to
+						"flip" or "rotate" a shape after it is drawn. While this would be an interesting stretch goal
+						for the program, for the time being, users will have to make do.
+					 </p>
 					<hr>
 					<h1><a id="sprint_eight">Sprint Eight</a></h1>
 					<h2>Aim</h2>
@@ -726,13 +975,14 @@
 					<h2>Planning</h2>
 					<p>Link to the canvas Page</p>
 					<h2>Testing</h2>
+					<h3>Final program test</h3>
 					<h2>Reflections</h2>
 					<hr>
-<h1> Relevant Implications Summary</h1>
+<h1><a id="rel_imp">Relevant Implications</a></h1>
  <hr>
  <hr>
 <!-- Paragraphs -->
-					<h1> GITHUB INSTRUCTIONS </h1>
+					<h1><a id="github" Github instructions</a></h1>
 					<h2>
 						cd to directory<br>
 						git status <br>
