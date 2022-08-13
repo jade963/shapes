@@ -45,7 +45,7 @@ class Main extends InteractiveObject{
         is selected in order to identify shapeChoice.
         */
         else if (Button.selected === null) {
-            let multiButton_list = [BStickArrow,BThickArrow,BFull,BHalf,BQuarter]
+            let multiButton_list = [BStickArrow,BThickArrow,BFull,BHalf,BQuarter,B4,B5,B6,B7,B8]
             for (let i=0; i<multiButton_list.length; i++){
                 if (multiButton_list[i].selected){
                     this.shapeChoice = multiButton_list[i].text
@@ -65,6 +65,7 @@ class Main extends InteractiveObject{
         super.mUp(e);
         if (shortClick_Button.selected != null){
             this.changeChoice = shortClick_Button.selected.text;
+            console.log(this.changeChoice)
         }
         if (this.changeChoice === "Clear"){
             this.objectSet = []
@@ -141,7 +142,6 @@ class Main extends InteractiveObject{
         }
         // SHAPECHOICE
         if (this.inBounds === true){
-            console.log(this.shapeChoice)
             if (this.shapeChoice === "Rectangle"){
                 let temp = new Rectangle(this.xStart,this.yStart,this.h,this.w,this.fillChoice,this.strokeChoice,
                     fillColour,strokeColour,this.lineWidth,this.dash)
@@ -159,9 +159,8 @@ class Main extends InteractiveObject{
             }
             else if (this.shapeChoice === "Stick" || this.shapeChoice === "Thick"){
                 let temp = new Arrow(this.xStart,this.yStart,this.xMouse,this.yMouse,this.fillChoice,this.strokeChoice,
-                    fillColour,strokeColour,this.lineWidth,this.dash,this.shapeChoice)
+                    fillColour,strokeColour,this.lineWidth,this.dash,this.shapeChoice,selectedSwatch)
                 this.objectSet.push(temp)
-
             }
             else if (this.shapeChoice === "Full"){
                 let temp = new Ellipse(this.xC,this.yC,this.xMouse,this.yMouse,this.radiusX,this.radiusY,this.rotation,this.startAngle,this.endAngle,this.fillChoice,
@@ -176,6 +175,10 @@ class Main extends InteractiveObject{
             else if (this.shapeChoice === "1/4"){
                 let temp = new Ellipse(this.xStart,this.yStart,this.xMouse,this.yMouse,(2*this.radiusX),(2*this.radiusY),this.rotation,this.startAngle,this.endAngle,this.fillChoice,
                     this.strokeChoice,fillColour,strokeColour,this.lineWidth,this.dash,this.shapeChoice)
+                this.objectSet.push(temp)
+            }
+            else if (this.shapeChoice === "4" || this.shapeChoice === "5" || this.shapeChoice === "6" || this.shapeChoice === "7" || this.shapeChoice === "8"){
+                let temp = new Star(this.outer_radius,this.shapeChoice,this.xC,this.yC,this.fillChoice,this.strokeChoice,fillColour,strokeColour,this.lineWidth,this.dash)
                 this.objectSet.push(temp)
             }
         }
@@ -196,14 +199,15 @@ class Main extends InteractiveObject{
         ctx.beginPath();
         ctx.rect(278,0,1000-278,600)
         ctx.clip()
+        this.dash = "";
+        this.xC = this.xStart+this.w/2;
+        this.yC = this.yStart+this.h/2;
         this.x2 = this.xMouse;
         this.y2 = this.yMouse;
         this.w = this.xMouse - this.xStart;
         this.h = this.yMouse - this.yStart;
         this.radiusX = Math.abs(this.w/2);
         this.radiusY = Math.abs(this.h/2);
-        this.xC = this.xStart+this.w/2;
-        this.yC = this.yStart+this.h/2;
         // "true" distance values for width and height, ignoring negatives
         let h_true = Math.abs(this.h)
         let w_true = Math.abs(this.w)
@@ -211,17 +215,21 @@ class Main extends InteractiveObject{
         if(this.h < 0 || this.w < 0){
             if (w_true<h_true){
                 this.r = w_true/10
+                this.outer_radius = w_true*0.5
             }
             else if (h_true<w_true){
                 this.r = h_true/10
+                this.outer_radius = h_true*0.5
             }
         }
         else if(this.h > 0 && this.w > 0){
             if(this.h < this.w){
                 this.r = Math.abs(this.h/10)
+                this.outer_radius = Math.abs(h_true*0.5)
             }
             else if(this.h > this.w){
                 this.r = Math.abs(this.w/10)
+                this.outer_radius = Math.abs(w_true*0.5)
             }
         }
         // updates the values for the object being drawn
@@ -252,35 +260,33 @@ class Main extends InteractiveObject{
         let x2 = this.x2
         let y2 = this.y2
         // draws temporary "guide shapes" based on the choice of shape
-        if (this.shapeChoice === "Rectangle"){
-            this.tempRect(x,y,w,h);
-            this.tempLine(x,y,x+w,y+h)
-            this.tempLine(x,y+h,x+w,y)
-            this.tempCircle(x+w/2,y+h/2,r)
-        }
-        else if (this.shapeChoice === "Full"){
+        if (this.shapeChoice === "Rectangle") {
+            this.tempRect(x, y, w, h);
+            this.tempLine(x, y, x + w, y + h)
+            this.tempLine(x, y + h, x + w, y)
+            this.tempCircle(x + w / 2, y + h / 2, r)
+        } else if (this.shapeChoice === "Full") {
             this.tempEllipse(xC,yC,x2,y2,rX,rY,rotation,startAngle,endAngle,this.shapeChoice)
             this.tempRect(x,y,w,h);
             this.tempLine(x+w/2,y,x+w/2,y+h)
             this.tempLine(x,y+h/2,x+w,y+h/2)
             this.tempCircle(x+w/2,y+h/2,r)
-        }
-        else if (this.shapeChoice === "1/2"){
-            this.tempEllipse(xC,y,x2,y2,rX,rY,rotation,startAngle,endAngle,this.shapeChoice)
-            this.tempRect(x,y,w,h);
-        }
-        else if (this.shapeChoice === "1/4"){
-            this.tempEllipse(x,y,x2,y2,rX,rY,rotation,startAngle,endAngle,this.shapeChoice)
-        }
-        else if (this.shapeChoice === "Line"){
-            this.tempLine(x,y,x2,y2)
-        }
-        else if (this.shapeChoice === "Triangle"){
-            this.tempRect(x,y,w,h);
-            this.tempTriangle(x+w/2,y,x+w,y+h,x,y+h)
-        }
-        else if (this.shapeChoice === "Stick" || this.shapeChoice === "Thick"){
-            this.tempArrow(x,y,x2,y2,this.shapeChoice)
+        } else if (this.shapeChoice === "1/2") {
+            this.tempEllipse(xC, y, x2, y2, rX, rY, rotation, startAngle, endAngle, this.shapeChoice)
+            this.tempRect(x, y, w, h);
+        } else if (this.shapeChoice === "1/4") {
+            this.tempEllipse(x, y, x2, y2, rX, rY, rotation, startAngle, endAngle, this.shapeChoice)
+            this.tempRect(x,y,w,h)
+        } else if (this.shapeChoice === "Line") {
+            this.tempLine(x, y, x2, y2)
+        } else if (this.shapeChoice === "Triangle") {
+            this.tempRect(x, y, w, h);
+            this.tempTriangle(x + w / 2, y, x + w, y + h, x, y + h)
+        } else if (this.shapeChoice === "Stick" || this.shapeChoice === "Thick") {
+            this.tempArrow(x, y, x2, y2, this.shapeChoice)
+        } else if (this.shapeChoice === "4" || this.shapeChoice === "5" || this.shapeChoice === "6" || this.shapeChoice === "7" || this.shapeChoice === "8") {
+            this.tempRect(x, y, w, h);
+            this.tempStar(this.outer_radius,this.shapeChoice,xC,yC)
         }
     }
 }
@@ -290,3 +296,4 @@ Main.prototype.tempCircle = tempCircle
 Main.prototype.tempEllipse = tempEllipse
 Main.prototype.tempTriangle = tempTriangle
 Main.prototype.tempArrow = tempArrow
+Main.prototype.tempStar = tempStar

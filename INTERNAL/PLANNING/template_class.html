@@ -890,7 +890,7 @@
 								it works quite well - there is very simple placeholder code that identifies each object
 								by its actual name in order to have everything selecting and deselecting appropriately,
 								e.g.:
-								<pre style="font-size: 1em;" align="left">
+								<pre style="font-size: 1em">
 									<code class="javascript">
 										if (this.shape === "Arrow"){
 										BStickArrow.selected = true
@@ -960,17 +960,70 @@
 						"flip" or "rotate" a shape after it is drawn. While this would be an interesting stretch goal
 						for the program, for the time being, users will have to make do.
 					 </p>
+					<h3>Artwork by a seven-year-old test user</h3>
+					<img class="img-responsive" src="assets/img/sprint_7_imogen.png">
 					<hr>
 					<h1><a id="sprint_eight">Sprint Eight</a></h1>
 					<h2>Aim</h2>
+					<p>The aim of this sprint is to implement a customisable star, as well as fix several small issues
+                        and bugs from the previous sprint. </p>
 					<h2>To-do</h2>
+                    <img class="img-responsive" src="assets/img/sprint_8_board.png">
 					<h2>Planning</h2>
-					<p>Link to the canvas Page</p>
+					<img class="img-responsive" src="assets/img/sprint_8_plan_1.jpg">
 					<h2>Testing</h2>
+                    <video class="center" controls>
+                    <source src="assets/video/sprint_8_test1.mov" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+					<p>This test shows the successful implementation of the star. It also shows the successful fix to
+					the tempArrow and the ellipse class. Unfortunately, the number of problems seems to have doubled
+					in comparison to the start of the sprint.
+					<ol>
+						<li>When the mouse goes down to begin drawing the star, the star first appears in the left-hand
+						corner (for a split second only). Then, for as long as the mouse remains down without moving,
+						the star appears underneath the user's mouse with apparently a randomly generated radius.
+						Finally, when the user begins moving the mouse, the tempStar appears in the way that it should.
+						</li>
+					<br>
+					<li>
+						Although the arrow is no longer picking up the line dash when it shouldn't, the cost of this has
+						 been that the line dash is no longer affected for any other shape, <i>unless</i> the shape is
+						changed more than once after the line dash is changed, <i>or</i> the user butterfly-taps on the
+						keyboard instead of fully clicking.
+					</li>
+					<li>
+						Despite all the work that was done on the canvas boundaries in sprint four, if the user
+						butterfly-taps on a button in the button area, a shape is still sometimes drawn. The strange
+						glitches surrounding when the user butterfly-taps instead of normal clicking are a total
+						mystery to me, but clearly, they will have to be fixed, as they are interfering with the user
+						experience by forcing them to spend time undoing or clearing unwanted shapes from the canvas.
+					</li>
+					<li>
+						The temp_ellipse resizes with a lag, meaning the curves sometimes overlap the bounds of the
+						temp_rectangle container, which makes the program look messy and poorly made. It has been
+						determined that this is simply a performance issue, due to the number of buttons the program
+						now has, and although I will investigate solutions it may simply have to be accepted as a part
+						of the program.
+					</li>
+					</ol>
+					</p>
 					<h2>Reflections</h2>
+					<p>Clearly, although the goals of the sprint have been met, it is difficult to call this a
+					successful sprint due to the number of the problems remaining. These are problems that actively
+					interfere with the user experience - the line-dash glitch means that this program is no longer
+					fully functional, whereas the star glitch is just confusing and strange. The newly-discovered
+					performance issues also seem like a clear sign that it is time to stop adding complicated new
+					features and buttons to this project until a solution can be found. <br><br>
+					As a result of all this, I have decided that I will abandon the transparency toggler (seen in the
+					test in its placeholder form) and in the next sprint, implement only the grid toggler (as I believe
+					this will be fairly straightforward). I will then focus on fixing bugs and performance issues so
+					that the program can be considered to be at least temporarily completed.</p>
 					<hr>
 					<h1><a id="sprint_nine">Sprint Nine</a></h1>
 					<h2>Aim</h2>
+					<p>The aim of this sprint is to add an option to toggle the grid on and off, as well as finding the
+					source of and hopefully fixing the issues with the guide star and the line dash.</p>
 					<h2>To-do</h2>
 					<h2>Planning</h2>
 					<p>Link to the canvas Page</p>
@@ -982,7 +1035,7 @@
  <hr>
  <hr>
 <!-- Paragraphs -->
-					<h1><a id="github" Github instructions</a></h1>
+					<h1><a id="github"> Github instructions</a></h1>
 					<h2>
 						cd to directory<br>
 						git status <br>
