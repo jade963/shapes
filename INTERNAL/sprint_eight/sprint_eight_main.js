@@ -64,9 +64,7 @@ let BigDash = new strokeStyle_Button(148.5,440,104.5,22,0,6,"rgb(0,0,0)","rgb(0,
 let LittleDash = new strokeStyle_Button(148.5,462,104.5,22,0,6,"rgb(0,0,0)","rgb(0,0,0)","rgb(150,150,150)","rgb(200,200,200)","Large dash","rgb(255,255,255)")
 strokeStyle_Button.selected = Solid
 
-let BGrid = new Toggler(22,506,104.5,22,0,6,"rgb(0,0,0)","rgb(0,0,0)","rgb(150,150,150)","rgb(200,200,200)","","Grid")
-let BTransparency = new Toggler(148.5,506,104.5,22,0,6,"rgb(0,0,0)","rgb(0,0,0)","rgb(150,150,150)","rgb(200,200,200)","","Transparency")
-BTransparency.selected = false
+let BGrid = new Toggler(22,506,231,22,0,6,"rgb(0,0,0)","rgb(0,0,0)","rgb(150,150,150)","rgb(200,200,200)","","Grid")
 
 let Clear = new shortClick_Button(22,550,62.33,22,0,6,"rgb(0,0,0)",
     "rgb(0,0,0)","rgb(150,150,150)","rgb(200,200,200)","Clear",
@@ -80,7 +78,7 @@ let Redo = new shortClick_Button(190.67,550,62.33,22,0,6,"rgb(0,0,0)",
 
 function animate(){
     ctx.clearRect(0,0,width,height);
-    G.update();
+    G.update()
     BRectangle.update()
     BLine.update()
     BTriangle.update()
@@ -104,7 +102,6 @@ function animate(){
     BigDash.update()
     LittleDash.update()
     BGrid.update()
-    BTransparency.update()
     TStroke.update()
     TFill.update()
     stroke_chooser.update()

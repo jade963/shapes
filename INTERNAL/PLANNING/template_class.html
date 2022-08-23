@@ -351,7 +351,6 @@
 							this.fillChoice = false;
 							}
 							</code> </pre>
-						</p>
 						<h3>Test - Togglers bug fix</h3>
 						<video class="center" controls>
 							<source src="assets/video/sprint_3_comp4_fix.mov" type="video/mp4">
@@ -398,7 +397,6 @@
 								strokeColour = this.strokeSet[0]
 							}
 							</code> </pre>
-				</p>
 					<h3>Final test - Colour_Button bug fix</h3>
 					<video class="center" controls>
 						<source src="assets/video/sprint_3_comp5_fix.mov" type="video/mp4">
@@ -889,15 +887,14 @@
 								The video on the left shows the first test of this multi_Button class. As can be seen,
 								it works quite well - there is very simple placeholder code that identifies each object
 								by its actual name in order to have everything selecting and deselecting appropriately,
-								e.g.:
-								<pre style="font-size: 1em">
-									<code class="javascript">
-										if (this.shape === "Arrow"){
-										BStickArrow.selected = true
-										BThickArrow.selected = false
-										}
-								</code>
-								</pre>
+								e.g.
+<pre style="font-size: 1em;"><code class="javascript">
+if (this.shape === "Arrow"){
+	BStickArrow.selected = true
+	BThickArrow.selected = false
+}
+</code>
+</pre>
 								This code is very clunky and impractical, and makes adding new multi_Button objects
 								far more complex and time-consuming than it needs to be. It will be revisited shortly,
 								when the Ellipse multi_Buttons are added to the program.
@@ -911,9 +908,9 @@
 						<source src="assets/video/sprint_7_comp3_test1.mov" type="video/mp4">
 						Your browser does not support the video tag.
 					</video>
-					<p>This video shows a test of all of the new shapes - the two varieties of the Arrow class and the
+					<p>This video shows a test of all the new shapes - the two varieties of the Arrow class and the
 					three varieties of the Ellipse class, two of which are new. These shapes are not currently connected
-					 to their buttons; however, this test does show that all of the new shape functions work, with the
+					 to their buttons; however, this test does show that all the new shape functions work, with the
 					exception of the quarter-ellipse - it doesn't work because it currently appears as an elliptical arc
 						 from point A to point B, with a second line drawn between point A and point B, when there needs
 						 to be a point C at a 90º angle from A & B. The design of this will need revisiting later.
@@ -970,7 +967,7 @@
 					<h2>To-do</h2>
                     <img class="img-responsive" src="assets/img/sprint_8_board.png">
 					<h2>Planning</h2>
-					<img class="img-responsive" src="assets/img/sprint_8_plan_1.jpg">
+					<img class="img-responsive" width="50%" src="assets/img/sprint_8_plan_1.jpg">
 					<h2>Testing</h2>
                     <video class="center" controls>
                     <source src="assets/video/sprint_8_test1.mov" type="video/mp4">
@@ -1023,17 +1020,213 @@
 					<h1><a id="sprint_nine">Sprint Nine</a></h1>
 					<h2>Aim</h2>
 					<p>The aim of this sprint is to add an option to toggle the grid on and off, as well as finding the
-					source of and hopefully fixing the issues with the guide star and the line dash.</p>
+					source of and hopefully fixing the issues with the guide star, the line dash, and control panel
+						glitch.</p>
 					<h2>To-do</h2>
+					<img class="img-responsive" src="assets/img/sprint_9_board.png">
 					<h2>Planning</h2>
-					<p>Link to the canvas Page</p>
 					<h2>Testing</h2>
-					<h3>Final program test</h3>
-					<h2>Reflections</h2>
+					<h3>Component test #1 - grid toggler</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_9_comp1_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>This video shows the first test of the grid toggler function. It was fortunately just as easy
+					to implement as I had hoped, so I can move on to the final bug fixes before the program can be
+						considered complete.
+						<br><br>
+						The first problem I want to investigate is the line dash glitch.
+						<li>Console logs revealed that the
+						"dash" variable returns a blank if called inside
+						basic function where the shape should be drawn, or into the rectangle class. Therefore the
+						problem must be in the Main function.</li>
+					<li>Console logs also reveal that "this.dash" is being read correctly by the end of the code in
+					 Main.mDown(). The problem must therefore be in Main.mUp(), Main.mClick(), or Main.update().</li>
+					<li>The problem was eventually found in Main.update() - in an earlier attempt to fix a problem
+					with the tempArrow picking up lineDash, "this.dash" was being set to null. This line of code was
+					forgotten about and has been causing problems since. </li>
+					</p>
+					<h3>Component test #2 - line dash bug fix</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_9_comp2_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>
+						This video shows the line dash, finally working again as it should. <br><br>
+						The next bug on the list to investigate and fix is the problem that sometimes, when the user
+						butterfly-taps inside the control panel, especially when the ellipse or star is selected,
+						that shape is drawn underneath the control panel and is visible on the edge of the canvas.
+						<li>This
+						may or may not show up in videos, as it does not consistently occur (this is because the size
+						of the
+						shape being drawn appears to be random as it is not controlled by the user, and is sometimes
+					concealed underneath the control panel.) </li>
+					<li>In an earlier sprint, a similar problem occurred where if the mouse went up over a button while
+					a shape was being drawn, that button would select or deselect. To fix this, I used the getBoundary
+					function to create a new "amIDrawing" variable. I will simply replicate this approach and declare
+						the amIDrawing variable in the Main.mUp function.</li>
+					<li>I did not record my test of this fix (due to the inconsistency of the error actually appearing
+						and the fact that the test just involves random clicking) but I do believe that the error has
+						been fixed.
+					</li>
+					The next problem to investigate is the other half of the mUp butterfly-tapping glitch - the fact
+					that shapes of a totally random size appear anywhere on the canvas if the user taps without
+					clicking.
+					<li>My proposed strategy for fixing this is ensuring that no shape will be drawn if the width or
+					height variable for the shape is less than 1px. This will be implemented similarly to the
+					amIDrawing fix. </li>
+					</p>
+					<pre style="font-size: 1.5em;">
+<code class="javascript">
+	let shouldIDraw = true
+	if (w_true < 1 || h_true < 1){
+		shouldIDraw = false
+    }
+	if (this.inBounds === true && this.amIDrawing === true && shouldIDraw === true){
+		// draw shapes
+	}
+</code>
+</pre>
+					<h3>Component test #3 - butterfly-tapping bug test</h3>
+					<video class="center" controls>
+						<source src="assets/video/sprint_9_comp3_test.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<p>
+					Unfortunately, my proposed fix was unsuccessful. After completing the test shown above, I began
+					logging the width and height of each shape that was drawn as a result of the butterfly-tapping.
+					The console log revealed that each shape did have a width and a height variable. It is not clear to
+					me how this can be possible, so I have been forced to conclude that this glitch is an unavoidable
+					result of my program not being able to handle the sensitivity of my Mac keyboard.
+					<br><br>
+					However, while I was testing slight variations of my planned code, I did implement the following
+					in Main.mDown() in the hopes a similar strategy would work to prevent the guide star from working
+					so erratically.</p>
+					<pre style="font-size: 1.5em;">
+<code class="javascript">
+	// at the end of Main.mDown - controls if this.draw() (where the guide functions are located) is called at all
+            if (this.inBounds === true && this.w != 0 && this.h != 0){
+                this.draw();
+            }
+</code>
+</pre>
+					<p>
+					As can be seen from the test below, this actually worked, meaning that what was in my opinion the
+					worst of the program's glitches has now been fixed. Unfortunately, placing the same code in the mUp
+					function had no effect, so the butterfly-tapping glitch remains. I  now believe that there is no
+					way to fix this last remaining glitch. Fortunately, I don't think of it as much of a barrier to the
+					program's functionality, as it doesn't stop the user from drawing and only occurs occasionallu and
+					if they're already
+					clicking aimlessly around in the middle of the canvas. As a result, I believe I can finally
+					declare this program finished.
+					</p>
+					<video class="center" controls>
+						<source src="assets/video/sprint_9_comp3_test2.mov" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>
+					<h3>Project reflection</h3>
+					<p>
+					During this project, I used the Agile project management technique. I began with a project backlog
+					that included all the tasks I needed to complete in order to create the project I envisioned. I
+					prioritised the tasks by assigning them to "sprints", which I completed one by one over a period of
+					days or weeks. Each sprint had
+					its own goal and miniature backlog/task list, which I created using a kanban board so that I could
+					keep track of my progress in the sprint. I also planned each sprint using pseudocode, sketches, and
+					other natural-language explanations so that it was clear to me and others at all points what exactly
+					 I was trying to do with a piece of code before I started writing it. After every change I made to
+					the project, I tested it, documented that testing, and then reflected on it, using the results to
+					formulate a plan for what to do next. I completed a comprehensive reflection on each sprint that
+					helped me to assess the effectiveness or ineffectiveness of what I was doing, and was therefore able
+					 maintain a flexible mindset throughout as to how things should be done in my program.
+					</p>
+					<p>To maintain this approach, I used Github.com as a tool. After each sprint was completed, I
+					committed my finalised changes to Github, and used the website's "projects" function to regularly
+					update both my project backlog and the kanban boards for each sprint. In this way, I could continue
+					to enhance the program and build up its sophistication in a logical, linear, and efficient manner,
+						as well as maintaining a history of all file versions. The Agile structure allowed me to ensure
+					that I was consistently considering all the options for the completion of my project, as shown by
+						the numerous failed tests that forced me to go down another track, as well as ensuring I
+					stayed on track. </p>
+					<h3>Screenshot of git commit history</h3>
+					<img class="img-responsive" src="assets/img/commit_history.png">
+					<h3>Finalised project backlog</h3>
+					<img class="img-responsive" src="assets/img/final_backlog.png">
+					<h1><a id="rel_imp">Relevant Implications</a></h1>
+					<h3>Usability</h3>
+					<p>
+						A good program should be easy to use, even for someone new to the software. This program has
+						been designed with Nielsen’s usability heuristics in mind.
+						<br>
+						<b>Match between the system and the real world:</b> my program has a straightforward,
+						uncomplicated design, and there is a clear visual separation between the console area
+						(which contains buttons) and the drawing area. Users are prevented from drawing inside the
+						console area, and their drawings will not appear outside of the drawing area. The combination
+						of these two factors makes it very obvious to the user. This setup prevents them from
+						accidentally worsening their own experience by drawing over a button, making it impossible to
+						see what they are clicking on. It also mirrors the real-world drawing experience of keeping
+						your canvas and your materials separate, and so should make the program easier to understand.
+						<br>
+						<b>Consistency and standards: </b>the use of buttons in the first place provides another
+						example of how usability has been considered in my program design. A button has real-world
+						implications and is easily recognisable to most users. The buttons are also enacted with a
+						simple “click”, which is conventional in digital spaces. Everything the user can do with the
+						program is indicated by a button, so there is no need to mess around with keyboard shortcuts,
+						sliders, dropdown menus, etc..
+						<br>
+						<b>Visibility of system status:</b> the program provides constant feedback to the user about
+						what processes are active. When buttons are hovered over, a thick dark grey outline appears,
+						and when a button is selected, there is a thick light grey outline until it is deselected.
+						This means that the user always knows what is occurring. There is also a “guide shape” which
+						shows the user how their shape will appear while they are drawing, before they release their
+						mouse and finalise it.
+						<br>
+						<b>User control and freedom:</b> In the program’s current state, the user is offered more than
+						a dozen options of different ways their shape might appear. There is a colour palette, options
+						to change stroke and fill, and so forth. They also have use of “clear”, “undo”, and “redo”
+						buttons which allow them to fix any mistakes they might make in the drawing process, which is
+						very convenient and prevents them from becoming too frustrated with the program.
+						<br>
+						<b>Recognition rather than recall: </b>Everything the program is capable of doing is clearly
+						displayed on the console to the left. I have also used text instead of symbols to indicate each
+						buttons’ functions, largely due to my own experience of frustration with other programs
+						(such as Photoshop) where it is easy to spend hours trying to figure out what hundreds of
+						random symbols might do or clicking around through hidden menus. This way, the program does not
+						ask too much of the new user.
+					</p>
+					<h3>Functionality</h3>
+					<p>
+						“Functionality” means that the program functions as it should, without crashes or glitches.
+						To ensure this, I have personally tested the program each time I added or altered code,
+						performed a formal test after each sprint. The vast majority of these tests are documented
+						above. I have also asked people not familiar with the project to test it for me. The use of the
+						Agile processes was instrumental in this.
+						At this point, there are no places where the program crashes. There is one slight glitch, in
+						that if the user clicks aimlessly around in the centre of the drawing area a shape will appear
+						with randomly generated width and height. I could not find a reason for this glitch. As a
+						result, I have decided to consider it a sort of “stamp”. Because it doesn’t appear in the first
+						place unless the user is wasting time with the program, perhaps it will motivate them to start
+						drawing.
+						The program also loads and acts quickly.
+					</p>
+					<h3>Future-proofing</h3>
+					<p>
+						“Future-proofing” means that this program will continue to be flexible and easy to work with
+						into the future. The code must be easy to update and expand upon, and easy to understand for
+						any new developer who comes to work on it. To address this, I have tried my best to keep the
+						structure of this program simple and easy to follow. The project is organised into four main
+						documents that deal with different aspects of the code - an html file, a “main” file where the
+						buttons and canvas is drawn, an “init” file for storing functions and classes, and a control
+						file where everything in the init file is called.
+						All functions and variables are sensibly named and doctyped, and the code has been thoroughly
+						commented. It has also been run through a JavaScript style checker in order to ensure I have
+						followed coding conventions. This confirms that my code will be easy to read and understand for
+						anyone with a basic knowledge of JavaScript. Finally, my use of Github, kanban and Agile
+						processes and my practice of extensive documentation (as seen in this document) ensures that I
+						and anyone with access to these materials have a detailed record of this program’s design,
+						structure, and potential weaknesses.
+					</p>
+
 					<hr>
-<h1><a id="rel_imp">Relevant Implications</a></h1>
- <hr>
- <hr>
 <!-- Paragraphs -->
 					<h1><a id="github"> Github instructions</a></h1>
 					<h2>
@@ -1044,99 +1237,10 @@
 						git push -u origin <br>
 					</h2>
 
-					<h3>Example code insert (don't do too much of this)</h3>
-<pre style="font-size: 1.5em;">
-<code class="javascript"> function inBoundsCheck(xM, yM, x, y, w, h){
-        if( xM > x && xM < x+w && yM > y && yM < y+h){
-            return true;
-        }else{
-            return false;
-        }
-    }</code>
-</pre>
- 
-            <hr>     
-                
-                <h3>Video Test Example</h3>
 
-
-				<video class="center" controls>
-					<source src="assets/vids/littleTest.mp4" type="video/mp4">
-				  Your browser does not support the video tag.
-				  </video>
-					<p>I hate you WebStorm</p>
-					<hr>
-
-					<!-- Responsive images -->
-					<h3>Example image placements</h3>
-					<p>For images to be responsive (so that they will rescale to suit the width of the parent, use the <code>.img-responsive</code> class.</p>
-					<img class="img-responsive" src="assets/img/place_holder.png" alt="">
-                <hr>
-                <div class="col-container">
-                <div class="col">
-               <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>I hate you WebStorm, <a href="#">I hate you WebStorm,</a>I hate you WebStorm</p>
-                </div>
-                 <div class="col">
-                <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>I hate you WebStorm, <a href="#">I hate you WebStorm,</a> I hate you WebStorm</p>
-                </div>
-                </div>
-                <hr>
-               
-              
-
-					<!-- Lists -->
-					<h3>Unordered list</h3>
-					<p>Unordered lists are used to markup lists where list items do not require numbering.</p>
-					<ul>
-						<li>UI hate you WebStorm</li>
-						<li>I hate you WebStorm</li>
-					</ul>
-					<hr>
-
-					<h3>Ordered list</h3>
-					<p>Ordered lists are used to markup lists where list items require numbering.</p>
-					<ol>
-						<li>I hate you WebStorm</li>
-						<li>I hate you WebStorm</li>
-					</ol>
-					<hr>
-
-					<h3>Unstyled list</h3>
-					<p>You can make the list unstyled using the <code>list-unstyled</code> class.</p>
-					<ul class="list-unstyled">
-						<li>I hate you WebStorm</li>
-						<li>I hate you WebStorm</li>
-					</ul>
-					<hr>
-
-					<h3>Inline list</h3>
-					<p>You can make the list display inline using the <code>list-inline</code> class.</p>
-					<ul class="list-inline">
-						<li>One</li>
-						<li>Two</li>
-						<li>Three</li>
-						<li>Four</li>
-					</ul>
-					<hr>
-
-				
-
-					<h3>Buttons</h3>
-					<p>You can apply the <code>btn</code> class to any element that requires a button style.</p>
-					<p><a href="#" class="btn">Submit</a></p>
-					<hr>
-
-
-
-               
-            
-
-			
 			</div>
 			<div class="footer">
-				&copy; Copyright 2015
+				&copy; Copyright 2022
 			</div>
 		</div>
 		</div>
